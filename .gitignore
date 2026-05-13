@@ -1,6 +1,5 @@
-# Data files
+# Data files (too large for git - download via script or kagglehub)
 data/
-*.csv
 
 # Python
 __pycache__/
