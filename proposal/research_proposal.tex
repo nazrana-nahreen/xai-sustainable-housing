@@ -1,0 +1,396 @@
+\documentclass[12pt, a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{float}
+
+% Formatting
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\begin{document}
+
+% ========== TITLE PAGE ==========
+\begin{titlepage}
+\begin{center}
+
+\vspace*{2cm}
+
+{\LARGE \textbf{Research Proposal}}
+
+\vspace{1cm}
+
+{\Large \textbf{Explainable Artificial Intelligence (XAI) for\\
+Sustainable Housing Policy:\\
+A Data-Driven Approach Using the USA Real Estate Dataset}}
+
+\vspace{2cm}
+
+{\large
+\textbf{Submitted by:}\\[0.3cm]
+Nazrana Nahreen\\
+}
+
+\vspace{2cm}
+
+{\large
+\textbf{Course:} [Course Name]\\[0.3cm]
+\textbf{Supervisor:} [Supervisor Name]\\[0.3cm]
+\textbf{Department:} [Department Name]\\[0.3cm]
+\textbf{Institution:} [Institution Name]\\[0.3cm]
+}
+
+\vspace{2cm}
+
+{\large \today}
+
+\end{center}
+\end{titlepage}
+
+% ========== TABLE OF CONTENTS ==========
+\tableofcontents
+\newpage
+
+% ========== 1. INTRODUCTION ==========
+\section{Introduction}
+
+The global housing crisis presents one of the most significant socioeconomic challenges of the 21st century. Rapid urbanization, coupled with rising property prices and environmental concerns, demands data-driven approaches to inform sustainable housing policies. According to the United Nations Sustainable Development Goal 11 (SDG 11), making cities and human settlements inclusive, safe, resilient, and sustainable requires transparent, evidence-based policymaking \citep{un2015sdg}.
+
+Machine learning (ML) models have demonstrated strong predictive capabilities in real estate valuation \citep{park2015using, antipov2012mass}. However, the ``black-box'' nature of complex ML models limits their adoption in public policy, where stakeholders require transparency and interpretability to build trust in model-driven recommendations \citep{arrieta2020explainable}.
+
+Explainable Artificial Intelligence (XAI) addresses this challenge by providing methods to interpret and understand model predictions \citep{molnar2020interpretable}. Techniques such as SHAP (SHapley Additive exPlanations) \citep{lundberg2017unified} and LIME (Local Interpretable Model-agnostic Explanations) \citep{ribeiro2016why} enable both global and local interpretability, making ML models suitable for informing public policy decisions.
+
+This proposal outlines a research project that applies XAI techniques to housing price prediction using the USA Real Estate Dataset, with the goal of deriving actionable, transparent insights for sustainable housing policy.
+
+% ========== 2. PROBLEM STATEMENT ==========
+\section{Problem Statement}
+
+Despite the availability of large-scale real estate data, housing policy decisions remain largely based on traditional statistical methods and expert judgment. Key challenges include:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Lack of transparency}: Advanced ML models that achieve high predictive accuracy are often opaque, making it difficult for policymakers to understand \textit{why} certain properties are valued higher or lower.
+    
+    \item \textbf{Limited sustainability metrics}: Existing real estate analyses rarely incorporate sustainability-relevant features such as land use efficiency, housing density, or environmental indicators.
+    
+    \item \textbf{Regional inequities}: Housing markets vary significantly across states and regions, yet policies are often formulated without data-driven understanding of these disparities.
+    
+    \item \textbf{Prediction fairness}: ML models may exhibit systematic biases across different price ranges or geographic regions, potentially reinforcing existing inequities.
+\end{enumerate}
+
+This research aims to address these gaps by developing an XAI-based framework that provides transparent, interpretable, and policy-relevant insights from large-scale housing data.
+
+% ========== 3. RESEARCH OBJECTIVES ==========
+\section{Research Objectives}
+
+The primary objectives of this research are:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Develop predictive models} for housing prices using multiple machine learning algorithms, including baseline models (Linear Regression, Decision Tree) and advanced ensemble methods (Random Forest, XGBoost).
+    
+    \item \textbf{Apply XAI techniques} (SHAP and LIME) to interpret model predictions and identify the key factors driving housing prices at both global and local levels.
+    
+    \item \textbf{Engineer sustainability-relevant features} such as land use efficiency, room density, and affordability indices to enrich the analysis with domain-specific metrics.
+    
+    \item \textbf{Conduct rigorous model evaluation} using 5-fold cross-validation, ablation studies (to quantify the impact of engineered features), and fairness analysis across price ranges and geographic regions.
+    
+    \item \textbf{Derive actionable policy recommendations} for sustainable housing development, supported by transparent XAI evidence.
+\end{enumerate}
+
+% ========== 4. LITERATURE REVIEW ==========
+\section{Literature Review}
+
+\subsection{Machine Learning in Real Estate Valuation}
+
+Machine learning has been extensively applied to real estate price prediction. \citet{park2015using} demonstrated that ensemble methods outperform traditional hedonic pricing models. \citet{antipov2012mass} applied random forests to mass appraisal, achieving significant accuracy improvements over linear regression. More recently, gradient boosting methods such as XGBoost \citep{chen2016xgboost} have shown state-of-the-art performance in tabular data prediction tasks, including real estate valuation.
+
+\subsection{Explainable AI (XAI)}
+
+The field of XAI has grown rapidly in response to the increasing deployment of complex ML models in high-stakes domains. \citet{arrieta2020explainable} provide a comprehensive survey of XAI methods, categorizing them into model-specific and model-agnostic approaches. SHAP \citep{lundberg2017unified}, grounded in Shapley values from cooperative game theory, provides theoretically sound feature attribution. LIME \citep{ribeiro2016why} offers local interpretability through locally faithful linear approximations. \citet{molnar2020interpretable} provides a practical framework for applying these methods.
+
+\subsection{XAI in Housing and Urban Policy}
+
+While XAI has been applied in healthcare \citep{holzinger2019causability}, finance \citep{bussmann2021explainable}, and criminal justice, its application in housing policy remains limited. \citet{kok2017big} highlighted the potential of big data and ML in real estate but noted the need for interpretability. \citet{baldominos2018identifying} applied ML to urban planning but did not incorporate XAI methods. This research fills the gap by combining state-of-the-art XAI with sustainability-focused housing analysis.
+
+\subsection{Sustainable Housing Metrics}
+
+Sustainable housing encompasses environmental efficiency, affordability, and equitable access \citep{choguill2007meaning}. Key metrics include land use efficiency (the ratio of built-up area to lot size), housing density, and affordability indices \citep{mulliner2016approach}. Integrating these metrics into ML-based analysis can provide a more holistic view of housing sustainability.
+
+% ========== 5. PROPOSED METHODOLOGY ==========
+\section{Proposed Methodology}
+
+\subsection{Dataset}
+
+This research will use the \textbf{USA Real Estate Dataset} from Kaggle \citep{sakib2023dataset}, which contains over 2.2 million real estate listings across all U.S. states. The dataset includes the following features:
+
+\begin{table}[H]
+\centering
+\caption{Dataset Features}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Type} & \textbf{Description} \\
+\midrule
+price & float & Listing price in USD \\
+bed & float & Number of bedrooms \\
+bath & float & Number of bathrooms \\
+acre\_lot & float & Lot size in acres \\
+house\_size & float & House size in square feet \\
+state & string & U.S. state \\
+zip\_code & float & ZIP code \\
+city & string & City name \\
+status & string & Listing status \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Data Preprocessing}
+
+The preprocessing pipeline will include:
+\begin{itemize}
+    \item Removal of non-predictive columns (broker ID, street address, previous sale date)
+    \item Handling missing values (dropping rows with missing critical features)
+    \item Price filtering (\$10,000 -- \$5,000,000) to remove erroneous entries
+    \item Property size bounds (100--20,000 sqft, 1--10 bedrooms/bathrooms)
+    \item Outlier removal using percentile-based filtering (1st--99th percentile)
+\end{itemize}
+
+\subsection{Feature Engineering}
+
+Sustainability-focused features will be engineered:
+\begin{itemize}
+    \item \textbf{Land Use Efficiency} = house\_size / (acre\_lot $\times$ 43,560), clipped to [0, 1]
+    \item \textbf{Room Density} = (bed + bath) / (house\_size / 1000)
+    \item \textbf{Total Rooms} = bed + bath
+    \item \textbf{Price per Square Foot} = price / house\_size
+    \item \textbf{Log Price} = $\log(1 + \text{price})$ for target normalization
+    \item \textbf{State Affordability Index} = Z-score of state median price
+\end{itemize}
+
+\subsection{Model Development}
+
+Four models will be trained and compared:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Linear Regression} --- baseline linear model
+    \item \textbf{Decision Tree Regressor} --- single interpretable tree model
+    \item \textbf{Random Forest Regressor} --- ensemble of decision trees using bagging
+    \item \textbf{XGBoost Regressor} --- gradient-boosted ensemble with regularization
+\end{enumerate}
+
+All models will predict $\log(1 + \text{price})$ to handle the skewed price distribution.
+
+\subsection{Evaluation Framework}
+
+\begin{itemize}
+    \item \textbf{Standard Metrics}: R\textsuperscript{2}, MAE, RMSE on held-out test set (80/20 split)
+    \item \textbf{5-Fold Cross-Validation}: To assess model stability and generalizability
+    \item \textbf{Ablation Study}: Compare performance with and without sustainability-engineered features to quantify their contribution
+    \item \textbf{Fairness Analysis}: Evaluate prediction equity across price quartiles and U.S. states
+\end{itemize}
+
+\subsection{Explainability Analysis}
+
+\begin{itemize}
+    \item \textbf{SHAP Analysis}: Global feature importance (beeswarm and bar plots), feature dependence plots with interaction effects, and individual prediction waterfall plots
+    \item \textbf{LIME Analysis}: Local explanations for representative instances across the price spectrum
+    \item \textbf{Cross-Method Validation}: Compare feature rankings from SHAP, LIME, and built-in feature importance using Spearman rank correlation
+\end{itemize}
+
+\subsection{Policy Analysis}
+
+\begin{itemize}
+    \item State-level sustainability scoring based on land use efficiency, room density, and affordability
+    \item Regional equity assessment through geographic prediction analysis
+    \item Data-driven policy recommendations backed by XAI evidence
+\end{itemize}
+
+% ========== 6. EXPECTED OUTCOMES ==========
+\section{Expected Outcomes}
+
+\begin{enumerate}[label=\arabic*.]
+    \item A \textbf{comparative analysis} of four ML models for housing price prediction, demonstrating the trade-off between model complexity and performance.
+    
+    \item \textbf{Transparent feature importance rankings} from multiple XAI methods, identifying the key drivers of housing prices (e.g., location, property size, land use efficiency).
+    
+    \item An \textbf{ablation study} quantifying the predictive value of sustainability-engineered features.
+    
+    \item A \textbf{fairness assessment} revealing potential biases in model predictions across price ranges and geographic regions.
+    
+    \item \textbf{Actionable policy recommendations} for sustainable housing development, including:
+    \begin{itemize}
+        \item Promotion of land-efficient development patterns
+        \item Identification of optimal property configurations for affordability
+        \item Regional equity insights for equitable policy formulation
+        \item Transparency frameworks for AI-assisted housing assessment
+    \end{itemize}
+    
+    \item A \textbf{state-level sustainability scorecard} ranking U.S. states by composite sustainability metrics.
+\end{enumerate}
+
+% ========== 7. TOOLS AND TECHNOLOGIES ==========
+\section{Tools and Technologies}
+
+\begin{table}[H]
+\centering
+\caption{Tools and Technologies}
+\begin{tabular}{ll}
+\toprule
+\textbf{Category} & \textbf{Tools} \\
+\midrule
+Programming Language & Python 3.10+ \\
+Data Processing & Pandas, NumPy \\
+Machine Learning & Scikit-learn, XGBoost \\
+Explainability & SHAP, LIME \\
+Visualization & Matplotlib, Seaborn, Plotly \\
+Statistical Analysis & SciPy \\
+Development Environment & Jupyter Notebook \\
+Version Control & Git, GitHub \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ========== 8. PROPOSED TIMELINE ==========
+\section{Proposed Timeline}
+
+\begin{table}[H]
+\centering
+\caption{Project Timeline}
+\begin{tabular}{clp{8cm}}
+\toprule
+\textbf{Week} & \textbf{Phase} & \textbf{Activities} \\
+\midrule
+1--2 & Data Collection \& Preprocessing & Dataset acquisition, cleaning, missing value handling, outlier removal \\
+3--4 & Feature Engineering & Develop sustainability metrics, exploratory data analysis, correlation analysis \\
+5--6 & Model Development & Train and tune four ML models, hyperparameter optimization \\
+7--8 & Model Evaluation & Cross-validation, ablation study, fairness analysis \\
+9--10 & XAI Analysis & SHAP analysis, LIME explanations, cross-method validation \\
+11--12 & Policy Analysis \& Report & Sustainability scoring, policy recommendations, final report writing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ========== 9. SIGNIFICANCE ==========
+\section{Significance of the Study}
+
+This research contributes to the growing body of work at the intersection of AI, sustainability, and public policy:
+
+\begin{itemize}
+    \item \textbf{Methodological contribution}: Demonstrates a systematic framework for applying XAI to large-scale housing data, combining multiple explainability methods with rigorous evaluation.
+    
+    \item \textbf{Practical contribution}: Provides policymakers with transparent, interpretable insights for housing policy decisions, moving beyond opaque ML predictions.
+    
+    \item \textbf{Sustainability contribution}: Introduces sustainability-focused feature engineering for real estate analysis, quantifying the value of metrics like land use efficiency and room density.
+    
+    \item \textbf{Fairness contribution}: Evaluates prediction equity across geographic and socioeconomic dimensions, an essential requirement for policy deployment.
+\end{itemize}
+
+% ========== REFERENCES ==========
+\newpage
+\section*{References}
+
+\begingroup
+\renewcommand{\section}[2]{}
+\bibliographystyle{apalike}
+
+\begin{thebibliography}{99}
+
+\bibitem[Antipov \& Pokryshevskaya, 2012]{antipov2012mass}
+Antipov, E. A., \& Pokryshevskaya, E. B. (2012).
+Mass appraisal of residential apartments: An application of Random forest for valuation and a CART-based approach for model diagnostics.
+\textit{Expert Systems with Applications}, 39(2), 1772--1778.
+
+\bibitem[Arrieta et al., 2020]{arrieta2020explainable}
+Arrieta, A. B., D{\'i}az-Rodr{\'i}guez, N., Del Ser, J., et al. (2020).
+Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI.
+\textit{Information Fusion}, 58, 82--115.
+
+\bibitem[Baldominos et al., 2018]{baldominos2018identifying}
+Baldominos, A., Ram{\'o}n-Llin, I., \& Yag{\"u}e, M. (2018).
+Identifying real estate opportunities using machine learning.
+\textit{Applied Sciences}, 8(11), 2321.
+
+\bibitem[Bussmann et al., 2021]{bussmann2021explainable}
+Bussmann, N., Giudici, P., Marinelli, D., \& Papenbrock, J. (2021).
+Explainable machine learning in credit risk management.
+\textit{Computational Economics}, 57, 203--216.
+
+\bibitem[Chen \& Guestrin, 2016]{chen2016xgboost}
+Chen, T., \& Guestrin, C. (2016).
+XGBoost: A scalable tree boosting system.
+\textit{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, 785--794.
+
+\bibitem[Choguill, 2007]{choguill2007meaning}
+Choguill, C. L. (2007).
+The search for policies to support sustainable housing.
+\textit{Habitat International}, 31(1), 143--149.
+
+\bibitem[Holzinger et al., 2019]{holzinger2019causability}
+Holzinger, A., Langs, G., Denk, H., Zatloukal, K., \& M{\"u}ller, H. (2019).
+Causability and explainability of artificial intelligence in medicine.
+\textit{Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery}, 9(4), e1312.
+
+\bibitem[Kok et al., 2017]{kok2017big}
+Kok, N., Koponen, E. L., \& Mart{\'i}nez-Barbosa, C. A. (2017).
+Big data in real estate? From manual appraisal to automated valuation.
+\textit{The Journal of Portfolio Management}, 43(6), 202--211.
+
+\bibitem[Lundberg \& Lee, 2017]{lundberg2017unified}
+Lundberg, S. M., \& Lee, S. I. (2017).
+A unified approach to interpreting model predictions.
+\textit{Advances in Neural Information Processing Systems}, 30, 4765--4774.
+
+\bibitem[Molnar, 2020]{molnar2020interpretable}
+Molnar, C. (2020).
+\textit{Interpretable Machine Learning: A Guide for Making Black Box Models Explainable}.
+Leanpub.
+
+\bibitem[Mulliner et al., 2016]{mulliner2016approach}
+Mulliner, E., Malys, N., \& Maliene, V. (2016).
+Comparative analysis of MCDM methods for the assessment of sustainable housing affordability.
+\textit{Omega}, 59, 146--156.
+
+\bibitem[Park \& Bae, 2015]{park2015using}
+Park, B., \& Bae, J. K. (2015).
+Using machine learning algorithms for housing price prediction.
+\textit{Expert Systems with Applications}, 42(6), 2928--2934.
+
+\bibitem[Ribeiro et al., 2016]{ribeiro2016why}
+Ribeiro, M. T., Singh, S., \& Guestrin, C. (2016).
+``Why should I trust you?'': Explaining the predictions of any classifier.
+\textit{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, 1135--1144.
+
+\bibitem[Sakib, 2023]{sakib2023dataset}
+Sakib, A. S. (2023).
+USA Real Estate Dataset.
+Kaggle. \url{https://www.kaggle.com/datasets/ahmedshahriarsakib/usa-real-estate-dataset}
+
+\bibitem[United Nations, 2015]{un2015sdg}
+United Nations (2015).
+Transforming our world: The 2030 Agenda for Sustainable Development.
+\textit{United Nations General Assembly Resolution} 70/1.
+
+\end{thebibliography}
+\endgroup
+
+\end{document}
