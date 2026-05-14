@@ -78,7 +78,7 @@ The proposed system is an end-to-end XAI pipeline for sustainable housing policy
 ### 5.3 Predictive Modeling Module
 - **Random Forest Regressor**: 200 trees, max_depth=20, predicting log(price)
 - **XGBoost Regressor**: 300 estimators, max_depth=8, learning_rate=0.1
-- **Training**: 100,000 sample subset (80/20 train-test split)
+- **Training**: 200,000 sample subset (80/20 train-test split)
 - **Evaluation**: R², MAE, RMSE on both train and test sets
 
 ### 5.4 XAI Analysis Module
@@ -141,7 +141,7 @@ Six sustainability-focused features were engineered:
 
 ### 6.4 Model Training
 
-Two ensemble models were trained on a 100,000-sample subset:
+Four models were trained on a 200,000-sample subset (including Linear Regression and Decision Tree as baselines):
 
 **Random Forest:**
 - 200 estimators, max_depth=20, min_samples_split=10, min_samples_leaf=5
@@ -203,14 +203,14 @@ The cleaned dataset contains **1,317,749 residential property listings** across 
 
 Both models achieved strong predictive performance:
 
-| Metric | Random Forest | XGBoost |
-|--------|:------------:|:-------:|
-| **Training R²** | 0.8159 | 0.8338 |
-| **Test R²** | 0.7128 | **0.7444** |
-| **Test MAE** | $135,357 | **$126,402** |
-| **Test RMSE** | $243,771 | **$225,674** |
+| Model | Train R² | Test R² | Test MAE | Test RMSE |
+|-------|:--------:|:-------:|:--------:|:---------:|
+| Linear Regression | 0.4232 | 0.4210 | $195,183 | $332,672 |
+| Decision Tree | 0.8245 | 0.7116 | $132,859 | $232,231 |
+| Random Forest | 0.8188 | 0.7291 | $130,386 | $235,450 |
+| **XGBoost** | **0.8110** | **0.7547** | **$122,981** | **$218,727** |
 
-**XGBoost outperformed Random Forest** on all test metrics, achieving a test R² of 0.7444 and MAE of $126,402.
+**XGBoost outperformed all models** on test metrics, achieving a test R² of 0.7547 and MAE of $122,981 — a **79.3% improvement** over the Linear Regression baseline.
 
 ![Model Performance](https://app.devin.ai/attachments/27a789ea-3af8-4b26-9df7-83e88d43fe4f/model_performance.png)
 *Figure 4: Actual vs. predicted prices for both models*
@@ -333,7 +333,7 @@ Based on the XAI analysis, we recommend the following policy actions:
 
 - The dataset lacks temporal features (price trends), environmental attributes (energy ratings, green certifications), and demographic data
 - The sustainability score is a simplified composite; real-world scoring would require additional indicators
-- Model training used a 100K sample for computational efficiency; full-dataset training may yield different importance rankings
+- Model training used a 200K sample for computational efficiency; full-dataset training may yield different importance rankings
 
 ### Future Work
 
